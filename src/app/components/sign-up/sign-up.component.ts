@@ -17,8 +17,8 @@ export class SignUpComponent implements OnInit {
   public confhide: boolean = true;
   public matcher : any;
 
-  constructor(private formBuilder: FormBuilder, private httpClientService: HttpClientService,
-    private cdr: ChangeDetectorRef ) { }
+  constructor(private _formBuilder: FormBuilder, private _httpClientService: HttpClientService,
+    private _cdr: ChangeDetectorRef ) { }
 
   ngOnInit(): void {
     this.createForm();
@@ -28,7 +28,7 @@ export class SignUpComponent implements OnInit {
    * createForm
    */
   private createForm(){
-    this.formRegGroup = this.formBuilder.group({
+    this.formRegGroup = this._formBuilder.group({
       'userfirstname': [null, Validators.required],
       'userlastname': [null, Validators.required],
       'useremail': [null, Validators.compose([Validators.required, Validators.email])],
@@ -66,7 +66,7 @@ export class SignUpComponent implements OnInit {
    */
   public saveRegistrationEntry(){
     if(this.formRegGroup.valid){
-      this.httpClientService.submitFormData(this.formRegGroup.getRawValue()).subscribe({
+      this._httpClientService.submitFormData(this.formRegGroup.getRawValue()).subscribe({
         next: (res) => {console.log('RES ', res)},
         error:  (error) => {console.log('RES ', error)}
      });
@@ -79,7 +79,7 @@ export class SignUpComponent implements OnInit {
    */
   public clearRegistrationEntry(){
     this.formRegGroup.reset();
-    this.cdr.detectChanges();
+    this._cdr.detectChanges();
   }
 
   /**
@@ -87,6 +87,6 @@ export class SignUpComponent implements OnInit {
    */
   public clearEntry(){
     this.formRegGroup.reset();
-    this.cdr.detectChanges();
+    this._cdr.detectChanges();
   }
 }
