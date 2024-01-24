@@ -1,0 +1,95 @@
+<div class="maincontainer">
+    <mat-card class="maincontainer__matcardcontainer">
+      <mat-card-header>
+        <mat-card-title>Sign-Up</mat-card-title>
+         <mat-divider></mat-divider>
+      </mat-card-header>
+     
+    
+    <div class="maincontainer__formcontainer" novalidate> 
+      <form [formGroup]="formRegGroup" class="maincontainer__formcontainer form" (ngSubmit)="onSubmit(formRegGroup.value)">
+  
+        <mat-form-field class="form__element">
+          <input matInput type="text" required placeholder="First Name" aria-label="Provide First Name" formControlName="userfirstname" [errorStateMatcher]="matcher">
+          <button matSuffix mat-icon-button aria-label="Clear First Name" (click)="clearRegistrationInput('userfirstname')">
+            <mat-icon class="close-icon">close</mat-icon>
+          </button>
+          <mat-error *ngIf="formRegGroup.get('userfirstname') && formRegGroup.get('userfirstname').invalid">First Name is required</mat-error>
+        </mat-form-field>
+
+        <mat-form-field class="form__element">
+          <input matInput type="text" required placeholder="Last Name" aria-label="Provide Last Name" formControlName="userlastname" [errorStateMatcher]="matcher">
+          <button matSuffix mat-icon-button aria-label="Clear Last Name" (click)="clearRegistrationInput('userlastname')">
+            <mat-icon class="close-icon">close</mat-icon>
+          </button>
+          <mat-error *ngIf="formRegGroup.get('userlastname') && formRegGroup.get('userlastname').invalid">Last Name is required</mat-error>
+        </mat-form-field>
+        
+        <mat-form-field class="form__element">
+            <input matInput type="text" required placeholder="Email" aria-label="Provide Email" formControlName="useremail" [errorStateMatcher]="matcher">
+            <button matSuffix mat-icon-button aria-label="Clear Email" (click)="clearRegistrationInput('useremail')">
+              <mat-icon class="close-icon">close</mat-icon>
+            </button>
+            <mat-error *ngIf="formRegGroup.get('useremail') && formRegGroup.get('useremail').invalid">Email is required</mat-error>
+          </mat-form-field>
+          
+          <mat-form-field class="form__element">
+            <input matInput appCustomTooltip aria-label="Password Field" [contentTemplate]="template" placeholder="Password" [type]="hide ? 'password' : 'text'" formControlName="password" required>
+            <mat-icon matSuffix (click)="hide = !hide" aria-label="Toggle Password text">{{hide ? 'visibility_off' : 'visibility'}}</mat-icon>
+            <mat-hint *ngIf="!formRegGroup.get('password').value">Enter your password</mat-hint>
+          <mat-error *ngIf="formRegGroup.get('password') && formRegGroup.get('password').invalid">Password is required</mat-error>
+        </mat-form-field>
+        <mat-form-field class="form__element">
+          <input matInput placeholder="Confirm Password" aria-label="Confirm Password Field" [type]="confhide ? 'password' : 'text'" formControlName="confirmPassword" required>
+          <mat-icon matSuffix (click)="confhide = !confhide" aria-label="Toggle Confirm Password text">{{confhide ? 'visibility_off' : 'visibility'}}</mat-icon>
+          <mat-hint *ngIf="!formRegGroup.get('confirmPassword').value">Enter your confirm password</mat-hint>
+        <mat-error *ngIf="formRegGroup.get('confirmPassword') && formRegGroup.get('confirmPassword').hasError('NoPassswordMatch')">Password do not match</mat-error>
+      </mat-form-field>
+
+        </form>
+        </div>
+
+        <mat-card-actions>
+            <button type="button" aria-label="Save Form" mat-raised-button cdkFocusInitial (click)="saveRegistrationEntry()">
+              Save
+            </button>
+            <button type="button" aria-label="Clear Form" mat-raised-button (click)="clearRegistrationEntry()">
+              Clear
+            </button>
+          </mat-card-actions>
+          
+</mat-card></div>
+
+<ng-template #template>
+  <div class="password-hint">
+    <label class="col" [ngClass]="formRegGroup.controls['password'].hasError('required') || formRegGroup.controls['password'].hasError('minlength')  ? 'text-danger' : 'text-success'">
+        <i class="material-icons">{{ formRegGroup.controls['password'].hasError('required') ||
+            formRegGroup.controls['password'].hasError('minlength') ? 'cancel' :
+          'check_circle' }}</i>
+        Must be at least 8 characters!
+      </label>
+      <label class="col" [ngClass]="formRegGroup.controls['password'].hasError('required') || formRegGroup.controls['password'].hasError('hasNumber')  ? 'text-danger' : 'text-success'">
+        <i class="material-icons">{{ formRegGroup.controls['password'].hasError('required') ||
+            formRegGroup.controls['password'].hasError('hasNumber') ? 'cancel' :
+          'check_circle' }}</i>
+        Must contain at least 1 number!
+      </label>
+      <label class="col" [ngClass]="formRegGroup.controls['password'].hasError('required') || formRegGroup.controls['password'].hasError('hasCapitalCase')  ? 'text-danger' : 'text-success'">
+        <i class="material-icons">{{ formRegGroup.controls['password'].hasError('required') ||
+            formRegGroup.controls['password'].hasError('hasCapitalCase') ? 'cancel' :
+          'check_circle' }}</i>
+        Must contain at least 1 in Capital Case!
+      </label>
+      <label class="col" [ngClass]="formRegGroup.controls['password'].hasError('required') || formRegGroup.controls['password'].hasError('hasSmallCase')  ? 'text-danger' : 'text-success'">
+        <i class="material-icons">{{ formRegGroup.controls['password'].hasError('required') ||
+            formRegGroup.controls['password'].hasError('hasSmallCase') ? 'cancel' :
+          'check_circle' }}</i>
+        Must contain at least 1 Letter in Small Case!
+      </label>
+      <label class="col" [ngClass]="formRegGroup.controls['password'].hasError('required') || formRegGroup.controls['password'].hasError('hasSpecialCharacters') ? 'text-danger' : 'text-success'">
+        <i class="material-icons">{{ formRegGroup.controls['password'].hasError('required') ||
+            formRegGroup.controls['password'].hasError('hasSpecialCharacters') ? 'cancel' :
+          'check_circle' }}</i>
+        Must contain at least 1 Special Character!
+      </label>
+</div>

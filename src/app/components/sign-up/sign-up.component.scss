@@ -1,0 +1,52 @@
+@mixin box-shadow($shadow) {
+  -webkit-box-shadow: $shadow; // iOS <4.3 & Android <4.1
+          box-shadow: $shadow;
+}
+
+@mixin border-radius-block($radius) {
+  border-radius: $radius;
+}
+
+.maincontainer {
+    width: 100%;
+    height: auto;
+    display: flex;
+    justify-content: center;
+    @include box-shadow(none);
+    
+    &__matcardcontainer{
+      display: flex;
+      flex-direction: column;
+      width: 80%;
+      min-width: 320px;
+      padding-bottom: 20px;
+      @include border-radius-block(10px);
+    }
+    &__formcontainer{
+      display: flex;
+      flex-direction: column;
+    }
+  }
+
+  .form {
+    &__element{
+      font-size: medium;
+    }
+  }
+  
+  .password-hint{
+    @include box-shadow(none);
+    display: flex;
+    flex-direction: column;
+  }
+  .material-icons {
+    display: inline-flex;
+    vertical-align: middle;
+  }
+  .text-danger{
+    color: red;
+  }
+
+  .text-success {
+    color: green;
+  }
